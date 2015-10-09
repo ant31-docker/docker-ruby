@@ -19,7 +19,7 @@ before_script:
 
 script:
   - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-  - docker build -t "$image" .
+  - docker build -t "$DOCKER_REGISTRY:$image" .
 
 after_script:
   - docker images
