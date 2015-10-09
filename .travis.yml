@@ -1,0 +1,25 @@
+
+sudo: required
+
+language: bash
+
+services:
+    - docker
+
+
+env:
+  - VERSION=2.2.0
+  - VERSION=2.2.1
+
+before_script:
+  - env | sort
+  - cd "$VERSION"
+  - image="$VERSION"
+
+script:
+  - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+  - docker build -t "$image" .
+
+after_script:
+  - docker images
+  - docker push -t "$DOCKER_REGISTRY:$image"
