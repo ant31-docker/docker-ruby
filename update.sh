@@ -15,10 +15,8 @@ for version in "${versions[@]}"; do
     mkdir "$version" || true
     (
 	set -x
-	cp Dockerfile.tpl "$version/Dockerfile"
-	sed -i 's/{{RUBY_VERSION}}/'"$version"'/g;' "$version/Dockerfile"
+	cp Dockerfile.tpl "build/Dockerfile"
+	sed -i 's/{{RUBY_VERSION}}/'"$version"'/g;' "build/Dockerfile"
     )
+    git tag $version -f
 done
-
-travis="$(awk -v 'RS=\n\n' '$1 == "env:" { $0 = "env:'"$travisEnv"'" } { printf "%s%s", $0, RS }' .travis.yml)"
-echo "$travis" > .travis.yml
