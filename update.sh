@@ -15,5 +15,6 @@ for version in "${versions[@]}"; do
 	cp Dockerfile.tpl "build/Dockerfile"
 	sed -i 's/{{RUBY_VERSION}}/'"$version"'/g;' "build/Dockerfile"
     )
-    git commit -a -m "Ruby $version" || git tag $version -f
+    git commit -a -m "Ruby $version"
+    git tag $version -f
 done
